@@ -6,15 +6,15 @@ var company = {
     interns: [],
     fired: function (who, whom) {
         if (who instanceof Director && whom instanceof Manager) {
-            company.managers.pop(whom)
+            company.managers.splice(whom, 1)
         } else if (who instanceof Director && whom instanceof Cleaner) {
-            company.cleaners.pop(whom)
+            company.cleaners.splice(whom, 1)
         } else if (who instanceof Director && whom instanceof Security) {
-            company.security.pop(whom)
+            company.security.splice(whom, 1)
         } else if (who instanceof Director && whom instanceof Intern) {
-            company.interns.pop(whom)
+            company.interns.splice(whom, 1)
         } else if (who instanceof Director && whom instanceof Intern) {
-            company.interns.pop(whom)
+            company.interns.splice(whom, 1)
         }
     },
     hired: function (whom) {
@@ -112,8 +112,12 @@ Intern.prototype.takeVacation = function () {
 //Создали новый экземпляр класса
 var Petr = new Cleaner('Petr', 'man', 45);
 var Stepa = new Director('Stepa', 'man', 45);
+var Maksym = new Cleaner('Maksym', 'man', 30);
+var Vladimir = new Cleaner('Vladimir', 'man', 45);
 
 company.hired(Petr);
+company.hired(Maksym)
+company.hired(Vladimir);
 console.log(company.cleaners);
 company.fired(Stepa, Petr);
 console.log(company.cleaners);
