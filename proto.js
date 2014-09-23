@@ -10,12 +10,12 @@
 //};
 
 //Создали конструктор (базовый класс Сотрудник)
-function Employee(config) {
-    {
-        this.name = config.name;
-        this.sex = config.sex;
-        this.age = config.age
-    }
+function Employee(name, sex, age) {
+
+    this.name = name;
+    this.sex = sex;
+    this.age = age
+
 }
 //Расширили свойсва базового класса
 Employee.prototype.goToWork = function () {
@@ -30,47 +30,66 @@ Employee.prototype.takeVacation = function () {
     console.log('Сотрудник ' + this.name + ' пошел в отпуск');
 };
 
-Employee.prototype.fire = function () {
+Employee.prototype.resign = function () {
     console.log('Сотрудник ' + this.name + ' уволился по собственному желанию');
 };
 
 Employee.prototype.getSalary = function () {
     console.log('Сотрудник ' + this.name + ' получил зарплату');
 };
-console.log(config);
-//функция наследования через провежуточный класс
-//function inheritBest(Child, Parent) {
-//    var c = Child.prototype.constructor;
-//    var F = function () {};
-//    F.prototype = Parent.prototype;
-//    Child.prototype = new F();
-//    Child.prototype.constructor = c;
-//}
 
-//Создаем конструктор Начальник, который полностью наследуем от Employee
-function Boss(config) {
+//функция наследования через провежуточный класс
+function inheritBest(Child, Parent) {
+    var c = Child.prototype.constructor;
+    var F = function () {};
+    F.prototype = Parent.prototype;
+    Child.prototype = new F();
+    Child.prototype.constructor = c;
+}
+
+//Создаем конструктор Начальник, который полностью наследуем от Employee и добавляем свои специфические свойста
+function Boss(name, sex, age) {
     Employee.apply(this, arguments);
-    this.fire = function Fire() {
+    this.fire = function fire() {
         console.log(this.name + ' уволил сотрудника')
     };
-    this.ordering = function Ordering() {
+    this.ordering = function ordering() {
         console.log(this.name + ' отдал приказ')
     }
 }
 Boss.prototype = new Employee();
 
-var Petr = new Boss({
-    name: 'Petr',
-    sex: 'man',
-    age: 45
-});
+//Создали класс Директор, который полностью наследуем от класса Boss
+function Director(name, sex, age) {
+    Boss.apply(this, arguments);
+}
+Director.prototype = new Boss();
 
+//Создпли клас Менеджер, который полностью наследуем от класса Boss
+function Manager(name, sex, age) {
+    Boss.apply(this, arguments);
+}
+Manager.prototype = new Boss();
+
+//Создали класс Уборщика, который полностью наследуется от Employee
+function Cleaner(name, sex, age) {
+    Employee.apply(this, arguments);
+    this.clean = function clean() {
+        console.log('Работник ' + this.name + ' начал убирать')
+    }
+}
+Cleaner.prototype = new Employee();
+
+//Создали класс Охранник, который полностью наследуем от Employee
+function Security(name, sex, age) {
+    Employee.apply(this, arguments);
+    this.guard = function guard() {
+        console.log('Работник ' + this.name + ' охраняет')
+    }
+}
+Security.prototype = new Employee();
+//Создали новый экземпляр класса
+var Petr = new Security('Petr', 'man', 45);
+Petr.guard();
 console.log(Petr);
-//var Director = new Boss({
-//    name: 'Vitaliy',
-//    sex: 'man',
-//    age: 46
-//});
-
-//Director.getSalary();
-//console.log(Director)
+Petr.resign();
