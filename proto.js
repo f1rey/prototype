@@ -1,21 +1,21 @@
-//var company = {
-//    directors: [],
-//    managers: [],
-//    cleaners: [],
-//    security: [],
-//    interns: []
-//    fire: function () {
-//    
-//}
-//};
+var company = {
+    directors: [],
+    managers: [],
+    cleaners: [],
+    security: [],
+    interns: [],
+    fire: function () {
 
+    },
+    hire: function () {
+
+    }
+};
 //Создали конструктор (базовый класс Сотрудник)
 function Employee(name, sex, age) {
-
     this.name = name;
     this.sex = sex;
     this.age = age
-
 }
 //Расширили свойсва базового класса
 Employee.prototype.goToWork = function () {
@@ -37,16 +37,6 @@ Employee.prototype.resign = function () {
 Employee.prototype.getSalary = function () {
     console.log('Сотрудник ' + this.name + ' получил зарплату');
 };
-
-//функция наследования через провежуточный класс
-function inheritBest(Child, Parent) {
-    var c = Child.prototype.constructor;
-    var F = function () {};
-    F.prototype = Parent.prototype;
-    Child.prototype = new F();
-    Child.prototype.constructor = c;
-}
-
 //Создаем конструктор Начальник, который полностью наследуем от Employee и добавляем свои специфические свойста
 function Boss(name, sex, age) {
     Employee.apply(this, arguments);
@@ -88,8 +78,18 @@ function Security(name, sex, age) {
     }
 }
 Security.prototype = new Employee();
+
+//Создали класс Стажер, который наследуем от Employee и переопределяем метод получать зарплату
+function Intern(name, sex, age) {
+    Employee.apply(this, arguments);
+}
+Intern.prototype = new Employee();
+Intern.prototype.getSalary = function () {
+    console.log('Стажеры не получают зарплату')
+};
+
 //Создали новый экземпляр класса
-var Petr = new Security('Petr', 'man', 45);
-Petr.guard();
-console.log(Petr);
-Petr.resign();
+var Petr = new Cleaner('Petr', 'man', 45);
+Petr.getSalary();
+var Stepa = new Intern('Stepa', 'man', 45);
+Stepa.getSalary();
