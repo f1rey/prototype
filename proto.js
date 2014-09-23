@@ -4,11 +4,31 @@ var company = {
     cleaners: [],
     security: [],
     interns: [],
-    fire: function () {
-
+    fired: function (who, whom) {
+        if (who === Director && whom === Manager) {
+            company.managers.pop(whom)
+        } else if (who === Director && whom === Cleaner) {
+            company.cleaners.pop(whom)
+        } else if (who === Director && whom === Security) {
+            company.security.pop(whom)
+        } else if (who === Director && whom === Intern) {
+            company.interns.pop(whom)
+        } else if (who === Director && whom === Intern) {
+            company.interns.pop(whom)
+        }
     },
-    hire: function () {
-
+    hired: function (whom) {
+        if (whom === Director) {
+            company.directors.push(whom)
+        } else if (whom === Manager) {
+            company.managers.push(whom)
+        } else if (whom === Cleaner) {
+            company.cleaners.push(whom)
+        } else if (whom === Security) {
+            company.security.push(whom)
+        } else if (whom === Intern) {
+            company.interns.push(whom)
+        }
     }
 };
 
