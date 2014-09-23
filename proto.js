@@ -9,7 +9,6 @@
 //}
 //};
 
-
 //Создали конструктор (базовый класс Сотрудник)
 function Employee(config) {
     {
@@ -38,35 +37,40 @@ Employee.prototype.fire = function () {
 Employee.prototype.getSalary = function () {
     console.log('Сотрудник ' + this.name + ' получил зарплату');
 };
-//функция наследования
-function inheritBest(Child, Parent) {
-    var c = Child.prototype.constructor;
-    var F = function () {};
-    F.prototype = Parent.prototype;
-    Child.prototype = new F();
-    Child.prototype.constructor = c;
-}
+console.log(config);
+//функция наследования через провежуточный класс
+//function inheritBest(Child, Parent) {
+//    var c = Child.prototype.constructor;
+//    var F = function () {};
+//    F.prototype = Parent.prototype;
+//    Child.prototype = new F();
+//    Child.prototype.constructor = c;
+//}
 
-function Director() {}
-inheritBest(Director, Employee);
-var Petr = new Director({
+//Создаем конструктор Начальник, который полностью наследуем от Employee
+function Boss(config) {
+    Employee.apply(this, arguments);
+    this.fire = function Fire() {
+        console.log(this.name + ' уволил сотрудника')
+    };
+    this.ordering = function Ordering() {
+        console.log(this.name + ' отдал приказ')
+    }
+}
+Boss.prototype = new Employee();
+
+var Petr = new Boss({
     name: 'Petr',
     sex: 'man',
-    age: 23
+    age: 45
 });
+
 console.log(Petr);
-Petr.goToWork();
+//var Director = new Boss({
+//    name: 'Vitaliy',
+//    sex: 'man',
+//    age: 46
+//});
 
-var Masha = new Employee({
-    name: 'Valia',
-    sex: 'woman',
-    age: 23
-});
-
-Masha.goToWork();
-Masha.goHome();
-Masha.takeVacation();
-Masha.fire();
-Masha.getSalary();
-
-console.log(Masha);
+//Director.getSalary();
+//console.log(Director)
