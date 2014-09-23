@@ -5,33 +5,32 @@ var company = {
     security: [],
     interns: [],
     fired: function (who, whom) {
-        if (who === Director && whom === Manager) {
+        if (who instanceof Director && whom instanceof Manager) {
             company.managers.pop(whom)
-        } else if (who === Director && whom === Cleaner) {
+        } else if (who instanceof Director && whom instanceof Cleaner) {
             company.cleaners.pop(whom)
-        } else if (who === Director && whom === Security) {
+        } else if (who instanceof Director && whom instanceof Security) {
             company.security.pop(whom)
-        } else if (who === Director && whom === Intern) {
+        } else if (who instanceof Director && whom instanceof Intern) {
             company.interns.pop(whom)
-        } else if (who === Director && whom === Intern) {
+        } else if (who instanceof Director && whom instanceof Intern) {
             company.interns.pop(whom)
         }
     },
     hired: function (whom) {
-        if (whom === Director) {
+        if (whom instanceof Director) {
             company.directors.push(whom)
-        } else if (whom === Manager) {
+        } else if (whom instanceof Manager) {
             company.managers.push(whom)
-        } else if (whom === Cleaner) {
+        } else if (whom instanceof Cleaner) {
             company.cleaners.push(whom)
-        } else if (whom === Security) {
+        } else if (whom instanceof Security) {
             company.security.push(whom)
-        } else if (whom === Intern) {
+        } else if (whom instanceof Intern) {
             company.interns.push(whom)
         }
     }
 };
-
 //Создали конструктор (базовый класс Сотрудник)
 function Employee(name, sex, age) {
     this.name = name;
@@ -112,11 +111,12 @@ Intern.prototype.takeVacation = function () {
 
 //Создали новый экземпляр класса
 var Petr = new Cleaner('Petr', 'man', 45);
-Petr.getSalary();
-var Stepa = new Intern('Stepa', 'man', 45);
-Stepa.getSalary();
-Stepa.takeVacation();
-console.log(Stepa);
+var Stepa = new Director('Stepa', 'man', 45);
+
+company.hired(Petr);
+console.log(company.cleaners);
+company.fired(Stepa, Petr);
+console.log(company.cleaners);
 
 
 //Создаем личный метод
@@ -125,6 +125,3 @@ if (typeof HTMLElement.prototype.myMethod !== 'function') {
         console.log(this.innerHTML + ", " + this.previousElementSibling.innerHTML + ", " + this.nextElementSibling.innerHTML);
     };
 }
-
-var p = document.getElementById('element2');
-p.myMethod();
