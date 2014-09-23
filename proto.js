@@ -12,9 +12,11 @@
 
 //Создали конструктор (базовый класс Сотрудник)
 function Employee(config) {
-    this.name = config.name;
-    this.sex = config.sex;
-    this.age = config.age
+    {
+        this.name = config.name;
+        this.sex = config.sex;
+        this.age = config.age
+    }
 }
 //Расширили свойсва базового класса
 Employee.prototype.goToWork = function () {
@@ -47,11 +49,19 @@ function inheritBest(Child, Parent) {
 
 function Director() {}
 inheritBest(Director, Employee);
-var Petr = new Employee('Петр', 'мужчина', 24);
+var Petr = new Director({
+    name: 'Petr',
+    sex: 'man',
+    age: 23
+});
 console.log(Petr);
 Petr.goToWork();
 
-var Masha = new Employee('Маша', 'девушка', 24);
+var Masha = new Employee({
+    name: 'Valia',
+    sex: 'woman',
+    age: 23
+});
 
 Masha.goToWork();
 Masha.goHome();
@@ -60,9 +70,3 @@ Masha.fire();
 Masha.getSalary();
 
 console.log(Masha);
-
-//это написана фигня
-//function Boss (fire, accept) {
-//    this.fire = fire;
-//    this.accept = accept 
-//};
