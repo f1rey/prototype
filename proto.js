@@ -6,15 +6,13 @@ var company = {
     interns: [],
     fired: function (who, whom) {
         if (who instanceof Director && whom instanceof Manager) {
-            company.managers.splice(whom, 1)
+            serchAndDelete(company.managers, whom);
         } else if (who instanceof Director && whom instanceof Cleaner) {
-            company.cleaners.splice(whom, 1)
+            serchAndDelete(company.cleaners, whom);
         } else if (who instanceof Director && whom instanceof Security) {
-            company.security.splice(whom, 1)
+            serchAndDelete(company.security, whom);
         } else if (who instanceof Director && whom instanceof Intern) {
-            company.interns.splice(whom, 1)
-        } else if (who instanceof Director && whom instanceof Intern) {
-            company.interns.splice(whom, 1)
+            serchAndDelete(company.interns, whom);
         }
     },
     hired: function (whom) {
@@ -31,6 +29,14 @@ var company = {
         }
     }
 };
+//Функция, которая ищет и удаляет сотрудника внутри массива
+function serchAndDelete(arr, elem) {
+    for (var i = 0; i < arr.length; i++) {
+        if (elem === arr[i]) {
+            arr.splice(i, 1);
+        }
+    }
+}
 //Создали конструктор (базовый класс Сотрудник)
 function Employee(name, sex, age) {
     this.name = name;
@@ -114,14 +120,15 @@ var Petr = new Cleaner('Petr', 'man', 45);
 var Stepa = new Director('Stepa', 'man', 45);
 var Maksym = new Cleaner('Maksym', 'man', 30);
 var Vladimir = new Cleaner('Vladimir', 'man', 45);
+var Irina = new Cleaner('Irina', 'woman', 14);
 
 company.hired(Petr);
 company.hired(Maksym)
 company.hired(Vladimir);
+company.hired(Irina)
 console.log(company.cleaners);
-company.fired(Stepa, Petr);
+company.fired(Stepa, Irina);
 console.log(company.cleaners);
-
 
 //Создаем личный метод
 if (typeof HTMLElement.prototype.myMethod !== 'function') {
