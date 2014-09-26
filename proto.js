@@ -29,6 +29,7 @@ var company = {
         }
     }
 };
+
 //Функция, которая ищет и удаляет сотрудника внутри массива
 function serchAndDelete(arr, elem) {
     for (var i = 0; i < arr.length; i++) {
@@ -37,6 +38,7 @@ function serchAndDelete(arr, elem) {
         }
     }
 }
+
 //Создали конструктор (базовый класс Сотрудник)
 function Employee(name, sex, age) {
     this.name = name;
